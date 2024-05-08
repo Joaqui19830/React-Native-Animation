@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {SectionList, Text, useWindowDimensions} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {colors} from '../../../config/theme/theme';
 import {Card} from '../../components/ui/Card';
 import {CustomView} from '../../components/ui/CustomView';
 import {Separator} from '../../components/ui/Separator';
 import {SubTitle} from '../../components/ui/SubTitle';
 import {Title} from '../../components/ui/Title';
+import {ThemeContext} from '../../context/ThemeContext';
 
 interface Houses {
   title: string;
@@ -91,6 +91,7 @@ const houses: Houses[] = [
 ];
 
 export const CustomSectionListScreen = () => {
+  const {colors} = useContext(ThemeContext);
   const {height} = useWindowDimensions();
   const {top} = useSafeAreaInsets();
 
@@ -103,7 +104,7 @@ export const CustomSectionListScreen = () => {
           sections={houses}
           keyExtractor={item => item}
           renderItem={({item}) => (
-            <Text style={{marginVertical: 2}}>{item}</Text>
+            <Text style={{color: colors.text, marginVertical: 2}}>{item}</Text>
           )}
           renderSectionHeader={({section}) => (
             <SubTitle
@@ -111,7 +112,6 @@ export const CustomSectionListScreen = () => {
               backgroundColor={colors.cardBackground}
             />
           )}
-          // Este de abajo es para que se quede el header por ej: DC Comics y cuando llega al otro headeres como que lo empuja
           stickySectionHeadersEnabled
           SectionSeparatorComponent={Separator}
           ListHeaderComponent={() => <Title text="Personajes" />}

@@ -1,24 +1,33 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import React from 'react';
+import React, {useContext} from 'react';
+import {ThemeContext} from '../context/ThemeContext';
 import {AlertScreen} from '../screens/alerts/AlertScreen';
 import {Animation101Screen} from '../screens/animations/Animation101Screen';
 import {Animation102Screen} from '../screens/animations/Animation102Screen';
 import {HomeScreen} from '../screens/home/HomeScreen';
 import {TextInputScreen} from '../screens/inputs/TextInputScreen';
 import {SwitchScreen} from '../screens/switches/SwitchScreen';
+import {ChangeThemeScreen} from '../screens/theme/ChangeThemeScreen';
 import {CustomSectionListScreen} from '../screens/ui/CustomSectionListScreen';
 import {InfiniteScrollScreen} from '../screens/ui/InfiniteScrollScreen';
 import {ModalScreen} from '../screens/ui/ModalScreen';
 import {PullToRefreshScreen} from '../screens/ui/PullToRefreshScreen';
+import {SlidesScreen} from '../screens/ui/SlidesScreen';
 
 const Stack = createStackNavigator();
 
 export const Navigator = () => {
+  // Aca se cambia para que no se vea el blanco en la pantalla de switch
+  const {colors} = useContext(ThemeContext);
+
   return (
     // Aca con el sceenOptions quitamos el header
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        cardStyle: {
+          backgroundColor: colors.background,
+        },
       }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="Animation101Screen" component={Animation101Screen} />
@@ -39,6 +48,8 @@ export const Navigator = () => {
         name="InfiniteScrollScreen"
         component={InfiniteScrollScreen}
       />
+      <Stack.Screen name="SlidesScreen" component={SlidesScreen} />
+      <Stack.Screen name="ChangeThemeScreen" component={ChangeThemeScreen} />
     </Stack.Navigator>
   );
 };
